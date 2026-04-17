@@ -94,7 +94,7 @@ contract TrapLifecycleTest is TestBase {
 
 contract ResponseAuthorizationTest is TestBase {
     function testOnlyDroseraCanCallResponse() public {
-        EulerDonationInsolvencyResponse response = new EulerDonationInsolvencyResponse();
+        EulerDonationInsolvencyResponse response = new EulerDonationInsolvencyResponse(REGISTRY_ADDR);
         TrapAlert memory alert = TrapAlert({
             invariantId: keccak256("EULER_COLLATERAL_DEBT_SOLVENCY_V2"),
             target: TARGET,
@@ -110,7 +110,7 @@ contract ResponseAuthorizationTest is TestBase {
     }
 
     function testResponseRejectsWrongInvariant() public {
-        EulerDonationInsolvencyResponse response = new EulerDonationInsolvencyResponse();
+        EulerDonationInsolvencyResponse response = new EulerDonationInsolvencyResponse(REGISTRY_ADDR);
         TrapAlert memory alert = TrapAlert(bytes32(uint256(1)), TARGET, 1, 0, block.number, ENVIRONMENT_ID, bytes(""));
         vm.prank(DROSERA);
         bool reverted;
